@@ -1,5 +1,6 @@
-package engineer.carrot.warren.kuroda;
+package engineer.carrot.warren.kuroda.listener;
 
+import engineer.carrot.warren.kuroda.KurodaPlugin;
 import hudson.Extension;
 import hudson.model.TaskListener;
 import org.jenkinsci.plugins.workflow.steps.AbstractStepDescriptorImpl;
@@ -11,7 +12,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-public class IrcSendStep extends AbstractStepImpl {
+public class SendStepListener extends AbstractStepImpl {
     private final @Nonnull String message;
 
     @Nonnull
@@ -20,7 +21,7 @@ public class IrcSendStep extends AbstractStepImpl {
     }
 
     @DataBoundConstructor
-    public IrcSendStep(@Nonnull String message) {
+    public SendStepListener(@Nonnull String message) {
         this.message = message;
     }
 
@@ -46,20 +47,19 @@ public class IrcSendStep extends AbstractStepImpl {
 
     private static class IrcSendStepExecution extends AbstractSynchronousNonBlockingStepExecution<Void> {
 
-        final transient IrcSendStep step;
+        final transient SendStepListener step;
 
         @StepContextParameter
         transient TaskListener listener;
 
         @Inject
-        public IrcSendStepExecution(IrcSendStep step) {
+        public IrcSendStepExecution(SendStepListener step) {
             this.step = step;
         }
 
         @Override
         protected Void run() throws Exception {
-            listener.getLogger().println("hello, kuroda!");
-            listener.getLogger().println("pipeline message: " + step.message);
+            KurodaPlugin.wrapper.send(step.message, listener);
 
             return null;
         }

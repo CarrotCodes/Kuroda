@@ -34,6 +34,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>4.10</junit.version>
         <workflow.version>1.14.2</workflow.version>
+        <warren.version>1.0.0.137</warren.version>
+        <kotlin.version>1.0.3</kotlin.version>
     </properties>
 
     <!-- The default licence for Jenkins OSS Plugins is MIT. Substitute for the applicable one if needed. -->
@@ -66,6 +68,10 @@
             <id>repo.jenkins-ci.org</id>
             <url>http://repo.jenkins-ci.org/public/</url>
         </repository>
+        <repository>
+            <id>maven.hopper.bunnies.io</id>
+            <url>http://maven.hopper.bunnies.io/</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -73,6 +79,32 @@
             <url>http://repo.jenkins-ci.org/public/</url>
         </pluginRepository>
     </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>process-test-sources</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -87,6 +119,13 @@
             <artifactId>workflow-step-api</artifactId>
             <version>${workflow.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>engineer.carrot.warren.warren</groupId>
+            <artifactId>Warren</artifactId>
+            <version>${warren.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.jenkins-ci.plugins.workflow</groupId>
             <artifactId>workflow-cps</artifactId>
@@ -104,6 +143,17 @@
             <artifactId>workflow-step-api</artifactId>
             <classifier>tests</classifier>
             <version>${workflow.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
 
