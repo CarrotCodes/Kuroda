@@ -12,7 +12,7 @@
 
     <groupId>engineer.carrot.warren.kuroda</groupId>
     <artifactId>Kuroda</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Kuroda IRC Plugin</name>
     <description>A build status publisher that notifies channels on an IRC network</description>

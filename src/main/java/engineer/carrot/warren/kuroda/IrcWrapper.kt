@@ -1,5 +1,6 @@
 package engineer.carrot.warren.kuroda
 
+import engineer.carrot.warren.kale.irc.message.rfc1459.NoticeMessage
 import engineer.carrot.warren.kale.irc.message.rfc1459.PrivMsgMessage
 import engineer.carrot.warren.warren.*
 import engineer.carrot.warren.warren.event.ConnectionLifecycleEvent
@@ -78,7 +79,7 @@ class IrcWrapper(private val server: String, private val port: Int, private val 
             channels.forEach {
                 listener.logger.println("sending to $it: $message")
 
-                irc.eventSink.add(SendSomethingEvent(PrivMsgMessage(target = it, message = message), irc.sink))
+                irc.eventSink.add(SendSomethingEvent(NoticeMessage(target = it, message = message), irc.sink))
             }
         }
     }
