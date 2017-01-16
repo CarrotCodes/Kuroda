@@ -24,9 +24,11 @@ pipeline {
 
         stage('Build') {
             steps {
-                def mvnHome = tool 'M3'
+                script {
+                    env.MVN_HOME = tool 'M3'
+                }
 
-                sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package"
+                sh "${env.MVN_HOME}/bin/mvn -Dmaven.test.failure.ignore clean package"
             }
         }
 
